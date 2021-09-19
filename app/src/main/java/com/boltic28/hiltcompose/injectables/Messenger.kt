@@ -4,7 +4,6 @@ import android.content.Context
 import android.widget.Toast
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * injectable class can include other injectables

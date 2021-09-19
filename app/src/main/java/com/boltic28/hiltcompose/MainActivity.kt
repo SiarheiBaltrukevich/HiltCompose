@@ -13,6 +13,7 @@ import com.boltic28.hiltcompose.injectables.names.NameHelper
 import com.boltic28.hiltcompose.ui.theme.HiltComposeTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import javax.inject.Provider
 
 /**
  * use [AndroidEntryPoint] annotation for classes where you're going to use hilt injection
@@ -33,12 +34,23 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var messenger: Messenger
 
+
+    /**
+     * example of late initialization via Provider<T>
+     * use it when you have not enough data for creating the instance
+     * for example only. not used.
+     */
     @Inject
     @DifficultHelper
-    lateinit var nameHelper: NameHelper //for example only. not used.
+    lateinit var nameHelperProvider: Provider<NameHelper>
+    lateinit var nameHelper: NameHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //late initialization with Provider
+        nameHelper = nameHelperProvider.get()
+
         setContent {
             HiltComposeTheme {
                 ButtonsGroup(
@@ -57,7 +69,8 @@ class MainActivity : ComponentActivity() {
                     onChangeNameAction = {
                         messenger.showMessage("gray button is clicked")
                         viewModel.changeName()
-                        viewModel.getUserName()
+                        viewModel.changeJob()
+                        viewModel.getUserInfo()
                     }
                 )
             }

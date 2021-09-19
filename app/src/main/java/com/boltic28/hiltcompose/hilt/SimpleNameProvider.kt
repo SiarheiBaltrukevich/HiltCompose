@@ -3,6 +3,8 @@ package com.boltic28.hiltcompose.hilt
 import com.boltic28.hiltcompose.MainViewModel
 import com.boltic28.hiltcompose.hilt.annotation.SimpleHelper
 import com.boltic28.hiltcompose.hilt.annotation.DifficultHelper
+import com.boltic28.hiltcompose.injectables.jobs.ITJob
+import com.boltic28.hiltcompose.injectables.jobs.JobHelper
 import com.boltic28.hiltcompose.injectables.names.NameHelper
 import com.boltic28.hiltcompose.injectables.names.RussianName
 import dagger.Binds
@@ -42,4 +44,8 @@ abstract class SimpleNameProvider {
     @SimpleHelper
     @Binds
     abstract fun bindNameHelper(namesVariant: RussianName): NameHelper
+
+    @ViewModelScoped
+    @Binds
+    abstract fun bindJobHelper(jobVariant: ITJob): JobHelper
 }
